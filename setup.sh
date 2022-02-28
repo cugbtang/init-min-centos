@@ -1,4 +1,3 @@
-```bash
 #!/bin/bash
 ## for CentOS7-minimal版本的安装
 
@@ -126,4 +125,4 @@ echo "[OK]"
 echo "Press any key to reboot server......"
 read
 reboot
-```
+
