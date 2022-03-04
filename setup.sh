@@ -121,6 +121,16 @@ echo '01 0 * * *  /usr/sbin/ntpdate ntp.ntsc.ac.cn  && /sbin/hwclock -w' >>  /va
 echo '00 01 * * 7 /usr/bin/yum update -y' >>  /var/spool/cron/root
 echo "[OK]"
 
+
+## container become base, use docker
+curl -fsSL https://get.docker.com -o get-docker.sh 
+sudo sh get-docker.sh
+sudo systemctl start docker
+rm -rf get-docker.sh
+
+## kubernetes become new system in cloud native time
+## how to make your cluster quick for develop : kubeadmin, minikube, kk, kind
+
 ## reboot
 echo "Press any key to reboot server......"
 read
