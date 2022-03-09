@@ -142,12 +142,11 @@ sudo yum remove docker \
   docker-logrotate \
   docker-engine
 ## 基础依赖
-yum install -y yum-utils \
-device-mapper-persistent-data \
-lvm2
+yum install -y yum-utils 
 ## 安装
 sudo yum install -y docker-ce docker-ce-cli containerd.io
 
+touch /etc/docker/daemon.json
 cat > /etc/docker/daemon.json <<EOF
 {
 	"registry-mirrors": ["https://uxgnsw6d.mirror.aliyuncs.com","https://www.docker-cn.com/registry-mirror"],
