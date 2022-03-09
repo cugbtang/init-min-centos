@@ -123,10 +123,45 @@ echo "[OK]"
 
 
 ## container become base, use docker
-curl -fsSL https://get.docker.com -o get-docker.sh 
-sudo sh get-docker.sh
-sudo systemctl start docker
-rm -rf get-docker.sh
+## curl -fsSL https://get.docker.com -o get-docker.sh 
+## sudo sh get-docker.sh
+## sudo systemctl start docker
+## rm -rf get-docker.sh
+
+#配置docker的yum地址
+sudo yum-config-manager \
+--add-repo \
+http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+## 不管之前是否安装过，先走个清除的流程
+sudo yum remove docker \
+  docker-client \
+  docker-client-latest \
+  docker-common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-engine
+## 基础依赖
+yum install -y yum-utils \
+device-mapper-persistent-data \
+lvm2
+## 安装
+sudo systemctl install -y docker-ce docker-ce-cli containerd.io
+
+cat > /etc/docker/daemon.json <<EOF
+{
+	"registry-mirrors": ["https://uxgnsw6d.mirror.aliyuncs.com","https://www.docker-cn.com/registry-mirror"],
+	"exec-opts": ["native.cgroupdriver=systemd"],
+	"log-driver": "json-file",
+	"log-opts": {
+		"max-size": "100m"
+	}
+	"storage-driver": "overlay2",
+	"storage-opts": ["overlay2.override_kernel_check=true"]
+}
+EOF
+
+systemctl daemon-reload && systemctl start docker && systemctl enable docker --now
 
 ## kubernetes become new system in cloud native time
 ## how to make your cluster quick for develop : kubeadmin, minikube, kk, kind
