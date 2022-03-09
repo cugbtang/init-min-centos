@@ -145,6 +145,7 @@ sudo yum remove docker \
 yum install -y yum-utils 
 ## 安装
 sudo yum install -y docker-ce docker-ce-cli containerd.io
+systemctl start docker
 
 touch /etc/docker/daemon.json
 cat > /etc/docker/daemon.json <<EOF
@@ -160,7 +161,7 @@ cat > /etc/docker/daemon.json <<EOF
 }
 EOF
 
-systemctl daemon-reload && systemctl start docker && systemctl enable docker --now
+systemctl daemon-reload && systemctl restart docker && systemctl enable docker --now
 
 ## kubernetes become new system in cloud native time
 ## how to make your cluster quick for develop : kubeadmin, minikube, kk, kind
