@@ -146,7 +146,7 @@ yum install -y yum-utils \
 device-mapper-persistent-data \
 lvm2
 ## 安装
-sudo systemctl install -y docker-ce docker-ce-cli containerd.io
+sudo yum install -y docker-ce docker-ce-cli containerd.io
 
 cat > /etc/docker/daemon.json <<EOF
 {
