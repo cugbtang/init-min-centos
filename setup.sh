@@ -145,22 +145,22 @@ sudo yum remove docker \
 yum install -y yum-utils 
 ## 安装
 sudo yum install -y docker-ce docker-ce-cli containerd.io
-systemctl start docker
+docker systemctl enable docker --now
 
-touch /etc/docker/daemon.json
-cat > /etc/docker/daemon.json <<EOF
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-	"registry-mirrors": ["https://uxgnsw6d.mirror.aliyuncs.com","https://www.docker-cn.com/registry-mirror"],
-	"log-driver": "json-file",
-	"log-opts": {
-		"max-size": "100m"
-	}
-	"storage-driver": "overlay2",
-	"storage-opts": ["overlay2.override_kernel_check=true"]
+  "registry-mirrors": ["https://82m9ar63.mirror.aliyuncs.com"],
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
 }
 EOF
 
-systemctl daemon-reload && systemctl restart docker && systemctl enable docker --now
+systemctl daemon-reload && systemctl restart docker
 
 ## kubernetes become new system in cloud native time
 ## how to make your cluster quick for develop : kubeadmin, minikube, kk, kind

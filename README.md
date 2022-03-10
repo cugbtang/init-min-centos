@@ -7,7 +7,9 @@ after  install  centos7 , init config for develop!
 - 1.直接在终端运行命令克隆这个项目：
 ```SH
 wget -qO https://raw.github.com/cugbtang/init-min-centos/main/setup.sh | sh -x
+```
 国内的走这里：
+```SH
 curl -L https://ghproxy.com/https://raw.github.com/cugbtang/init-min-centos/main/setup.sh | sh -x
 ```
 - 2.运行文件scripts/startup.sh来进行安装
