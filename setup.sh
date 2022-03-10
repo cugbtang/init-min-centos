@@ -151,7 +151,6 @@ touch /etc/docker/daemon.json
 cat > /etc/docker/daemon.json <<EOF
 {
 	"registry-mirrors": ["https://uxgnsw6d.mirror.aliyuncs.com","https://www.docker-cn.com/registry-mirror"],
-	"exec-opts": ["native.cgroupdriver=systemd"],
 	"log-driver": "json-file",
 	"log-opts": {
 		"max-size": "100m"
